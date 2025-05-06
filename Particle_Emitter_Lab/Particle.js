@@ -1,44 +1,48 @@
-class Particle {
-  constructor(x,y) {
-    this.position = createVector(x,y)
-    this.velocity = p5.Vector.random2D().mult(random(0.5,3))
-    this.acceleration = p5.Vector.random2D()
-    this.r = random(1,20)
-    this.lifespan = 255
-    
-    // Random Color
-    this.color = color(random(255), random(255), random(255))
+let emitters = []
+let G
+
+function setup() {
+  createCanvas(400, 600);
+
+  emitters.push( new Emitter( width/2, 30 ) )
+  
+  G = createVector(0,0.1)
+  ellipseMode(RADIUS)
+  noStroke()
+}
+
+function draw() {
+  background(220);
+  for( let e of emitters ) {
+    e.update()  
+  }
+}
+
+class Emitter {
+  constructor( x, y ) {
+    this.x = x
+    this.y = y
+    this.particles = []
+    for( let i = 0; i < 40; i++ ) { // edit particle number
+      this.particles.push( new Particle(this.x, this.y) )
+    }    
   }
   
   update() {
-    this.velocity.add(this.acceleration)
-    this.position.add(this.velocity)   
-    this.acceleration.mult(0)
-    this.lifespan -= 2
+    this.particles = this.particles.filter( p => !p.isDead() )
+
+    // draw all the live ones
+    for( let p of this.particles ) {
+      p.applyForce(G)
+      p.update()
+      p.draw()    
+    }
+
+    // add new ones
+    this.particles.push( new Particle(this.x, this.y) )     
   }
-  
-  isDead() {
-    return this.lifespan < 0
-    // if( this.lifespan < 0 ) {
-    //   return true 
-    // }
-    // return false
-  }
-  
-  draw() {
-    fill(this.color, this.lifespan)
-    circle(this.position.x,this.position.y,this.r)
-  }
-  
-  // f is a p5.Vector
-  applyForce(f) {
-    this.acceleration.add(f)
-  }
-  
-  
-  static createStandardParticleAt(x,y) {
-    return new Particle(
-      x,y
-    )
-  }
+}
+
+function mouseClicked() {
+  emitters.push( new Emitter(mouseX,mouseY) )
 }
