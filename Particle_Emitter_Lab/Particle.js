@@ -1,7 +1,7 @@
 class Particle {
   constructor(x,y) {
     this.position = createVector(x,y)
-    this.velocity = p5.Vector.random2D()
+    this.velocity = p5.Vector.random2D().mult(random(0.5,3))
     this.acceleration = p5.Vector.random2D()
     this.r = random(1,20)
     this.lifespan = 255
