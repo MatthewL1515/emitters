@@ -5,6 +5,9 @@ class Particle {
     this.acceleration = p5.Vector.random2D()
     this.r = 10
     this.lifespan = 255
+    
+    // Random Color
+    this.color = color(random(255), random(255), random(255))
   }
   
   update() {
@@ -23,7 +26,7 @@ class Particle {
   }
   
   draw() {
-    fill(255, this.lifespan)
+    fill(this.color, this.lifespan)
     circle(this.position.x,this.position.y,this.r)
   }
   
