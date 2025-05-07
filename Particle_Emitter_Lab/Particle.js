@@ -27,7 +27,7 @@ class Particle {
   
   draw() {
     fill(this.color, this.lifespan)
-    circle(this.position.x,this.position.y,this.r)
+    circle(this.position.x,this.position.y,this.r * (this.lifespan/255))
   }
   
   // f is a p5.Vector
