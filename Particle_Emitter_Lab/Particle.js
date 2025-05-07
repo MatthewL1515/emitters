@@ -18,7 +18,7 @@ class Particle {
   }
   
   isDead() {
-    return this.lifespan < 0
+    return this.r < 10
     // if( this.lifespan < 0 ) {
     //   return true 
     // }
