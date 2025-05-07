@@ -23,7 +23,8 @@ class Emitter {
     this.x = x
     this.y = y
     this.particles = []
-    for( let i = 0; i < 40; i++ ) { // edit particle number
+    let initialParticles = random(10, 100)
+    for( let i = 0; i < initialParticles; i++ ) { // edit particle number
       this.particles.push( new Particle(this.x, this.y) )
     }    
   }
