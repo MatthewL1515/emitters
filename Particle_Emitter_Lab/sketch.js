@@ -23,13 +23,17 @@ class Emitter {
     this.x = x
     this.y = y
     this.particles = []
-    for( let i = 0; i < 20; i++ ) {
+    let initialParticles = random(10, 100)
+    for( let i = 0; i < initialParticles; i++ ) { // edit particle number
       this.particles.push( new Particle(this.x, this.y) )
     }    
   }
   
   update() {
-    this.particles = this.particles.filter( p => !p.isDead() )
+    let particlesNum = random(0,2)
+    for (let i = 0; i < particlesNum; i++) {
+  this.particles.push(new Particle(this.x, this.y))
+    }
 
     // draw all the live ones
     for( let p of this.particles ) {
