@@ -19,36 +19,38 @@ function draw() {
 }
 
 class Emitter {
-  constructor( x, y ) {
+  constructor(x, y) {
     this.x = x
     this.y = y
     this.particles = []
-    let initialParticles = random(10, 100)
-    for( let i = 0; i < initialParticles; i++ ) { // edit particle number
-      this.particles.push( new Particle(this.x, this.y) )
-    }    
+    this.particleTypes = [Particle, StarParticle, TrailParticle]
+
+    let initialParticles = random(30, 60)
+    for (let i = 0; i < initialParticles; i++) {
+      this.particles.push(this.createParticle())
+    }
   }
-  
+
+  createParticle() {
+    let T = random(this.particleTypes)
+    return new T(this.x, this.y)
+  }
+
   update() {
-    let particlesNum = random(0,2)
+    let particlesNum = random(1, 3);
     for (let i = 0; i < particlesNum; i++) {
-  this.particles.push(new Particle(this.x, this.y))
+      this.particles.push(this.createParticle())
     }
 
-    // draw all the live ones
-    for( let p of this.particles ) {
+    for (let p of this.particles) {
       p.applyForce(G)
       p.update()
-      p.draw()    
+      p.draw()
     }
-
-    // add new ones
-    this.particles.push( new Particle(this.x, this.y) )     
   }
 }
 
+
 function mouseClicked() {
   emitters.push( new Emitter(mouseX,mouseY) )
-  emitters.push(new StarParticle(mouseX, mouseY))
-  emmiters.push(new TrailParticle(mouseX, mouseY))
 }
