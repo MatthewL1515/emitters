@@ -49,4 +49,6 @@ class Emitter {
 
 function mouseClicked() {
   emitters.push( new Emitter(mouseX,mouseY) )
+  emitters.push(new StarParticle(mouseX, mouseY))
+  emmiters.push(new TrailParticle(mouseX, mouseY))
 }
